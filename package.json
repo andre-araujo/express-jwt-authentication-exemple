@@ -1,11 +1,11 @@
 {
-    "name": "express-jwt-authentication-exemple",
+    "name": "express-jwt-authentication-example",
     "version": "0.0.1",
     "description": "A simple jwt authentication with express",
     "main": "./src/index.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/andre-araujo/express-jwt-authentication-exemple"
+        "url": "https://github.com/andre-araujo/express-jwt-authentication-example"
     },
     "author": "andre-araujo <andreluis9214@gmail.com>",
     "license": "MIT",
