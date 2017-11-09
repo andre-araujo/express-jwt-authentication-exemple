@@ -6,6 +6,9 @@
         "node": true,
         "es6": true
     },
+    "globals": {
+        "app": true
+    },
     "rules": {
         "indent": [1, 4, { "SwitchCase": 1 }],
         "linebreak-style": [0],
