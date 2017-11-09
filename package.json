@@ -1,0 +1,34 @@
+{
+    "name": "express-jwt-authentication-exemple",
+    "version": "0.0.1",
+    "description": "A simple jwt authentication with express",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andre-araujo/express-jwt-authentication-exemple"
+    },
+    "author": "andre-araujo <andreluis9214@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "nodemon index.js",
+        "commit": "git-cz"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2",
+        "jsonwebtoken": "^8.1.0",
+        "nodemon": "^1.12.1"
+    },
+    "devDependencies": {
+        "commitizen": "^2.9.6",
+        "cz-conventional-changelog": "^2.0.0",
+        "eslint": "^4.9.0",
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-plugin-import": "^2.7.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "settings": {
+      "ecmascript": 6
+    },
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "indent": [1, 4, { "SwitchCase": 1 }],
+        "linebreak-style": [0],
+        "no-multi-assign": [0],
+        "camelcase": 0
+    },
+    "extends": "airbnb-base"
+}
