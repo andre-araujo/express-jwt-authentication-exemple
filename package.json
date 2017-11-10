@@ -16,8 +16,10 @@
     "dependencies": {
         "body-parser": "^1.18.2",
         "express": "^4.16.2",
-        "jsonwebtoken": "^8.1.0",
-        "mongoose": "^4.13.0"
+        "jwt-simple": "^0.5.1",
+        "mongoose": "^4.13.0",
+        "passport": "^0.4.0",
+        "passport-jwt": "^3.0.1"
     },
     "devDependencies": {
         "commitizen": "^2.9.6",
