@@ -1,8 +1,18 @@
-app.post('/api/singup', require('../controllers/singup.controller.js'));
-app.post('/api/singin', require('../controllers/singin.controller.js'));
+const passport = require('passport');
+const jwtMiddleware = require('../middlewares/passportJWT.middleware');
+
+passport.use(jwtMiddleware);
+
+app.use(passport.initialize());
+
+const authentication = passport.authenticate('jwt', { session: false });
+
+app.get('/api/account/me', authentication, require('../controllers/account.controller'));
+app.post('/api/account/singup', require('../controllers/singup.controller'));
+app.post('/api/account/token', require('../controllers/token.controller'));
 
 app.all('*', (req, res) => {
-    res.send({
-        status: 'not found',
+    res.status(404).send({
+        status: 'Not found',
     });
 });
