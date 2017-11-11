@@ -10,8 +10,11 @@
     "author": "andre-araujo <andreluis9214@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "start": "nodemon ./src/index.js",
-        "commit": "git-cz"
+        "start": "node ./src/index.js",
+        "start:dev": "nodemon ./src/index.js",
+        "commit": "git-cz",
+        "lint:fix": "eslint ./ --fix",
+        "lint": "eslint ./"
     },
     "dependencies": {
         "body-parser": "^1.18.2",
