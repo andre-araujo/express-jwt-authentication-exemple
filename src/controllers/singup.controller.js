@@ -1,17 +1,16 @@
+const jwt = require('jwt-simple');
+const { secret } = require('../constants');
+
 const Account = require('../models/Account');
 
 function singup(req, res) {
     const {
-        name,
-        email,
-        password,
         phone,
+        ...accountData
     } = req.body;
 
     const account = {
-        name,
-        email,
-        password,
+        ...accountData,
         phone: Array.isArray(phone) && phone.map(tel => ({
             number: tel.number,
             prefix: tel.prefix,
@@ -20,18 +19,35 @@ function singup(req, res) {
         logged_at: new Date(),
     };
 
-    Account.update(
-        { email },
+    Account.findOneAndUpdate(
+        { email: accountData.email },
         {
             ...account,
             $setOnInsert: { created_at: new Date() },
         },
-        { upsert: true },
-        (err) => {
+        { upsert: true, passRawResult: true },
+        (err, updatedAccount) => {
             if (err) {
                 res.status(500).send({ status: err });
             }
-            res.send({ status: 'ok' });
+
+            const payload = { id: updatedAccount._id };
+            const token = jwt.encode(payload, secret);
+
+            const {
+                _id,
+                password,
+                ...updatedAccountResult
+            } = updatedAccount.toObject();
+
+            res.json({
+                status: 'Success',
+                token,
+                account: {
+                    id: _id,
+                    ...updatedAccountResult,
+                },
+            });
         },
     );
 }
