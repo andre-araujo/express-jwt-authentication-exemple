@@ -1,5 +1,5 @@
 const { MD5 } = require('crypto-js');
-const jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 const { secret } = require('../constants');
 
 const Account = require('../models/Account');
@@ -9,12 +9,6 @@ function tokenController(req, res) {
         email,
         password,
     } = req.body;
-
-    if (!email && !password) {
-        res.status(403).send({
-            status: 'Unauthorized',
-        });
-    }
 
     Account.findOneAndUpdate(
         {
@@ -26,14 +20,15 @@ function tokenController(req, res) {
             if (err) {
                 res.status(500).send({ status: err });
             }
+
             if (account) {
                 const payload = { id: account._id };
-                const token = jwt.encode(payload, secret);
+                const token = jwt.sign(payload, secret, { expiresIn: '30m' });
 
                 res.json({ token });
             } else {
-                res.status(403).send({
-                    status: 'Unauthorized',
+                res.status(401).send({
+                    status: 'User or password invalid',
                 });
             }
         },

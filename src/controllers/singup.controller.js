@@ -1,5 +1,5 @@
 const { MD5 } = require('crypto-js');
-const jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 const { secret } = require('../constants');
 
 const Account = require('../models/Account');
@@ -28,14 +28,14 @@ function singup(req, res) {
             ...account,
             $setOnInsert: { created_at: new Date() },
         },
-        { upsert: true, passRawResult: true },
+        { upsert: true },
         (err, updatedAccount) => {
             if (err) {
                 res.status(500).send({ status: err });
             }
 
             const payload = { id: updatedAccount._id };
-            const token = jwt.encode(payload, secret);
+            const token = jwt.sign(payload, secret, { expiresIn: '30m' });
 
             const {
                 _id,
