@@ -1,3 +1,4 @@
+const { MD5 } = require('crypto-js');
 const jwt = require('jwt-simple');
 const { secret } = require('../constants');
 
@@ -18,7 +19,7 @@ function tokenController(req, res) {
     Account.findOneAndUpdate(
         {
             email,
-            password,
+            password: MD5(password).toString(),
         },
         { $set: { logged_at: new Date() } },
         (err, account) => {

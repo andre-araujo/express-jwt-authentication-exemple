@@ -1,3 +1,4 @@
+const { MD5 } = require('crypto-js');
 const jwt = require('jwt-simple');
 const { secret } = require('../constants');
 
@@ -6,11 +7,13 @@ const Account = require('../models/Account');
 function singup(req, res) {
     const {
         phone,
+        password,
         ...accountData
     } = req.body;
 
     const account = {
         ...accountData,
+        password: MD5(password).toString(),
         phone: Array.isArray(phone) && phone.map(tel => ({
             number: tel.number,
             prefix: tel.prefix,
