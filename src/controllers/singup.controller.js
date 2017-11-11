@@ -8,24 +8,24 @@ function singup(req, res) {
         phone,
     } = req.body;
 
-    if (!name || !email || !password || !phone || !Array.isArray(phone)) {
-        res.send({ status: 'Missing information' });
-    }
-
     const account = {
         name,
         email,
         password,
-        singup_date: new Date(),
-        phone: phone.map(tel => ({
+        phone: Array.isArray(phone) && phone.map(tel => ({
             number: tel.number,
             prefix: tel.prefix,
         })),
+        updated_at: new Date(),
+        logged_at: new Date(),
     };
 
     Account.update(
         { email },
-        account,
+        {
+            ...account,
+            $setOnInsert: { created_at: new Date() },
+        },
         { upsert: true },
         (err) => {
             if (err) {

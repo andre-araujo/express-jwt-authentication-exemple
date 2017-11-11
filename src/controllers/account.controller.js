@@ -18,11 +18,13 @@ function accountController(req, res) {
                 id: account._id,
                 name: account.name,
                 email: account.email,
-                singup_date: account.singup_date,
                 phone: account.phone.map(tel => ({
                     number: tel.number,
                     prefix: tel.prefix,
                 })),
+                created_at: account.created_at,
+                updated_at: account.updated_at,
+                logged_at: account.logged_at,
             },
         });
     });
