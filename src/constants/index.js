@@ -7,6 +7,7 @@ module.exports = {
     NOT_FOUND: 'not found',
     USER_NOT_FOUND: 'user not found',
     INVALID_USER: 'invalid user or password',
-    INVALID_SESSION: 'invalid session',
+    INVALID_TOKEN: 'invalid token',
+    EXPIRED_TOKEN: 'token expired',
     UNAUTHORIZED: 'unauthorized',
 };
