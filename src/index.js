@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const {
-    mongoURL,
-    appPort,
+    MONGO_URL,
+    APP_PORT,
 } = require('./constants');
 
 global.app = express();
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
-    mongoURL,
+    MONGO_URL,
     {
         useMongoClient: true,
     },
@@ -22,6 +22,6 @@ mongoose.connect(
 
 require('./routes/index.js');
 
-app.listen(appPort, () => {
-    process.stdout.write(`> Ready on http://localhost:${appPort}\n`);
+app.listen(APP_PORT, () => {
+    process.stdout.write(`> Ready on http://localhost:${APP_PORT}\n`);
 });

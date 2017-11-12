@@ -22,7 +22,7 @@ A simple jwt authentication with express
 ### Remote database
 
 * Open constants files at `/src/constants/index`
-* Change mongoURL to your mongo server address
+* Change MONGO_URL to your mongo server address
 * Start the project with `npm start`
 
 ## Linting and Conventions

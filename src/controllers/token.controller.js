@@ -1,6 +1,11 @@
 const { MD5 } = require('crypto-js');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../constants');
+const {
+    SECRET,
+    TOKEN_EXPIRATION_TIME,
+    SUCCESS,
+    INVALID_USER,
+} = require('../constants');
 
 const Account = require('../models/Account');
 
@@ -23,12 +28,15 @@ function tokenController(req, res) {
 
             if (account) {
                 const payload = { id: account._id };
-                const token = jwt.sign(payload, secret, { expiresIn: '30m' });
+                const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_EXPIRATION_TIME });
 
-                res.json({ token });
+                res.json({
+                    status: SUCCESS,
+                    token,
+                });
             } else {
                 res.status(401).send({
-                    status: 'User or password invalid',
+                    status: INVALID_USER,
                 });
             }
         },

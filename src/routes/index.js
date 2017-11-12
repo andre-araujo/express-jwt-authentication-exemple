@@ -1,4 +1,6 @@
 const passport = require('passport');
+const { NOT_FOUND } = require('../constants');
+
 const jwtMiddleware = require('../middlewares/passportJWT.middleware');
 
 passport.use(jwtMiddleware);
@@ -13,6 +15,6 @@ app.post('/api/account/token', require('../controllers/token.controller'));
 
 app.all('*', (req, res) => {
     res.status(404).send({
-        status: 'Not found',
+        status: NOT_FOUND,
     });
 });

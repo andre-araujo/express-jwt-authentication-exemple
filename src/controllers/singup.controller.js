@@ -1,6 +1,10 @@
 const { MD5 } = require('crypto-js');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../constants');
+const {
+    SECRET,
+    TOKEN_EXPIRATION_TIME,
+    SUCCESS,
+} = require('../constants');
 
 const Account = require('../models/Account');
 
@@ -35,7 +39,7 @@ function singup(req, res) {
             }
 
             const payload = { id: updatedAccount._id };
-            const token = jwt.sign(payload, secret, { expiresIn: '30m' });
+            const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_EXPIRATION_TIME });
 
             const {
                 _id,
@@ -44,7 +48,7 @@ function singup(req, res) {
             } = updatedAccount.toObject();
 
             res.json({
-                status: 'Success',
+                status: SUCCESS,
                 token,
                 account: {
                     id: _id,

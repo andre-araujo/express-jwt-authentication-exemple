@@ -1,3 +1,8 @@
+const {
+    SUCCESS,
+    USER_NOT_FOUND,
+} = require('../constants');
+
 const Account = require('../models/Account');
 
 function accountController(req, res) {
@@ -11,7 +16,7 @@ function accountController(req, res) {
             }
 
             if (!account) {
-                res.status(404).send({ status: 'User not found' });
+                res.status(404).send({ status: USER_NOT_FOUND });
             }
 
             const {
@@ -21,7 +26,7 @@ function accountController(req, res) {
             } = account.toObject();
 
             res.json({
-                status: 'Success',
+                status: SUCCESS,
                 account: {
                     id: _id,
                     ...accountResult,

@@ -1,6 +1,9 @@
 
 const passportJWT = require('passport-jwt');
-const { secret } = require('../constants');
+const {
+    SECRET,
+    USER_NOT_FOUND,
+} = require('../constants');
 
 const Account = require('../models/Account');
 
@@ -8,7 +11,7 @@ const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;
 
 const opts = {
-    secretOrKey: secret,
+    secretOrKey: SECRET,
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
 
@@ -21,7 +24,7 @@ const strategy = new JwtStrategy(opts, ((payload, done) => {
         }
 
         if (!account) {
-            return done(new Error('User not found'), null);
+            return done(new Error(USER_NOT_FOUND), null);
         }
 
         return done(null, { id: account._id });
