@@ -17,13 +17,32 @@ const schema = new Schema({
     },
     phone: [
         {
+            _id: false,
             number: Number,
             prefix: Number,
         },
     ],
-    updated_at: Date,
-    logged_at: Date,
-    created_at: Date,
+    updated_at: {
+        type: Date,
+        default: Date.now,
+    },
+    logged_at: {
+        type: Date,
+        default: Date.now,
+    },
+    created_at: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+if (!schema.options.toObject) {
+    schema.options.toObject = {};
+}
+
+schema.options.toObject.transform = (doc, { _id, __v, ...ret }) => ({
+    id: _id,
+    ...ret,
 });
 
 module.exports = mongoose.model('Account', schema);

@@ -32,17 +32,16 @@ function singup(req, res) {
             ...account,
             $setOnInsert: { created_at: new Date() },
         },
-        { upsert: true },
+        { new: true, upsert: true },
         (err, updatedAccount) => {
             if (err) {
                 res.status(500).send({ status: err });
             }
 
-            const payload = { id: updatedAccount._id };
+            const payload = { id: updatedAccount.id };
             const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_EXPIRATION_TIME });
 
             const {
-                _id,
                 password,
                 ...updatedAccountResult
             } = updatedAccount.toObject();
@@ -50,10 +49,7 @@ function singup(req, res) {
             res.json({
                 status: SUCCESS,
                 token,
-                account: {
-                    id: _id,
-                    ...updatedAccountResult,
-                },
+                account: updatedAccountResult,
             });
         },
     );

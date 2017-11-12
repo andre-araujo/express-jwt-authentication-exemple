@@ -20,17 +20,13 @@ function accountController(req, res) {
             }
 
             const {
-                _id,
                 password,
                 ...accountResult
             } = account.toObject();
 
             res.json({
                 status: SUCCESS,
-                account: {
-                    id: _id,
-                    ...accountResult,
-                },
+                account: accountResult,
             });
         },
     );
